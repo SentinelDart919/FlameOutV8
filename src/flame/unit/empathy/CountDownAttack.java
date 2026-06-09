@@ -161,7 +161,7 @@ public class CountDownAttack extends AttackAI{
                     Tmp.v5.trns(rotation, 200f).add(unit.x, unit.y);
                     FlameFX.shootShockWave.at(Tmp.v5.x, Tmp.v5.y, rotation, 370f);
 
-                    Sounds.laserblast.play(1f, 0.5f, 0f);
+                    Sounds.shootLaser.play(1f, 0.5f, 0f);
 
                     collide = true;
                 }
@@ -653,7 +653,7 @@ public class CountDownAttack extends AttackAI{
                     collide = true;
 
                     float rot = 360f + Mathf.lerp(lastRotation, targetRotation, pow3.apply(rotation));
-                    Sounds.laserblast.play(0.4f, 2f, 0f);
+                    Sounds.shootLaser.play(0.4f, 2f, 0f);
 
                     for(int i = 0; i < 3; i++){
                         float r = (((360f / 3) * i) - 90f) + rot;

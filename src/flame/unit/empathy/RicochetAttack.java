@@ -81,7 +81,7 @@ public class RicochetAttack extends AttackAI{
                     //reload = 2.5f * 60f;
                     reload = 6f * 60f;
 
-                    Sounds.bolt.at(unit.x, unit.y);
+                    Sounds.shootLaser.at(unit.x, unit.y);
                     unit.randAI(true, unit.health < 50);
                 }
             }

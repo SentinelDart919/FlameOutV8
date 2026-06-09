@@ -75,7 +75,6 @@ public class DespondencyUnitType extends UnitType{
                     x = 45.75f;
                     y = 15.5f;
                     mirror = true;
-                    useAmmo = false;
 
                     reload = 3f * 60f;
 
@@ -86,7 +85,6 @@ public class DespondencyUnitType extends UnitType{
                     x = 54.5f;
                     y = -15f;
                     mirror = true;
-                    useAmmo = false;
 
                     continuous = true;
                     rotate = true;
@@ -109,7 +107,6 @@ public class DespondencyUnitType extends UnitType{
                     y = -34f;
                     shootY = 12f;
                     mirror = true;
-                    useAmmo = false;
 
                     rotate = true;
                     alternate = true;
@@ -156,7 +153,6 @@ public class DespondencyUnitType extends UnitType{
                     y = -62.75f;
                     shootY = 12f;
                     mirror = true;
-                    useAmmo = false;
 
                     rotate = true;
                     alternate = true;

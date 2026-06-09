@@ -51,7 +51,7 @@ public class PinAttack extends AttackAI{
                                 float ang = (360f / 10f) * i + Mathf.sinDeg(e.datas[1]) * 90f;
                                 FlameBullets.pin.create(unit, unit.team, e.x, e.y, ang);
                             }
-                            Sounds.missile.at(e.x, e.y, 2f);
+                            Sounds.shootMissileLarge.at(e.x, e.y, 2f);
                             e.datas[1] += 10f;
                             e.datas[0] = 0f;
                         }
@@ -78,7 +78,7 @@ public class PinAttack extends AttackAI{
                 if(Mathf.chance(0.5f)) in = Predict.intercept(v.x, v.y, targetX, targetY, vx, vy, 10f);
 
                 FlameBullets.pin.create(unit, unit.team, v.x, v.y, v.angleTo(in));
-                Sounds.missile.at(v.x, v.y, 2f);
+                Sounds.shootMissileLarge.at(v.x, v.y, 2f);
 
                 spawnTimer = unit.isDecoy() ? 6f : 3f;
             }

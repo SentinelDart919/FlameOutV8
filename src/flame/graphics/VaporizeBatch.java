@@ -112,7 +112,7 @@ public class VaporizeBatch extends Batch{
 
         boolean contain = (spriteHandler == null || spriteHandler.get(bx, by, width, height, rotation));
 
-        if(color.a <= 0.9f){
+        if(Color.alpha(colorPacked) <= 0.9f){
             /*
             RejectedRegion r = new RejectedRegion();
             r.region = region;
@@ -150,7 +150,7 @@ public class VaporizeBatch extends Batch{
                 cons.get(d, c);
             });
             dis.z = z;
-            dis.drawnColor.set(color);
+            dis.drawnColor.set(Float.floatToRawIntBits(colorPacked));
 
             if(discon != null){
                 discon.get(dis);
@@ -180,14 +180,12 @@ public class VaporizeBatch extends Batch{
         }
     }
 
-    @Override
-    protected void setMixColor(Color tint){
+    /*protected void setMixColor(Color tint){
 
     }
-    @Override
     protected void setMixColor(float r, float g, float b, float a){
 
-    }
+    }*/
     @Override
     protected void setPackedMixColor(float packedColor){
 

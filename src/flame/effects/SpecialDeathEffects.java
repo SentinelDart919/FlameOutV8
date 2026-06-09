@@ -34,7 +34,7 @@ public class SpecialDeathEffects{
     public Cons<FragmentEntity> fragDeath = null;
     public Color disintegrateColor = Pal.rubble, internalColor = Pal.darkerMetal;
     public boolean solid = true, hasInternal = false;
-    public Sound deathSound = Sounds.bang, primaryDeathSound = Sounds.none;
+    public Sound deathSound = Sounds.explosion, primaryDeathSound = Sounds.none;
 
     public static void load(){
         def = new SpecialDeathEffects();

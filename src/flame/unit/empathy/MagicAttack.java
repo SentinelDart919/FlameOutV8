@@ -131,7 +131,7 @@ public class MagicAttack extends AttackAI{
                     Tmp.v5.trns(rotation, 200f).add(unit.x, unit.y);
                     FlameFX.shootShockWave.at(Tmp.v5.x, Tmp.v5.y, rotation, 390f);
 
-                    Sounds.laserblast.play(1f, 0.5f, 0f);
+                    Sounds.shootLaser.play(1f, 0.5f, 0f);
 
                     impact = true;
                 }
@@ -193,7 +193,7 @@ public class MagicAttack extends AttackAI{
 
                         FlameBullets.pin.create(unit, unit.team, v.x, v.y, ang);
                     }
-                    Sounds.missile.at(unit.x, unit.y, 2f);
+                    Sounds.shootMissileLarge.at(unit.x, unit.y, 2f);
 
                     shots2++;
                     reload2 = 15f;
@@ -203,7 +203,7 @@ public class MagicAttack extends AttackAI{
 
                     Bullet b = FlameBullets.tracker.create(unit, unit.team, of.x, of.y, rotation);
                     b.data = unit.getTarget();
-                    Sounds.missile.at(of.x, of.y, 2.5f);
+                    Sounds.shootMissileLarge.at(of.x, of.y, 2.5f);
 
                     reload3 = 3f;
                 }

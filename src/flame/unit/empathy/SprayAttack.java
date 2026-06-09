@@ -35,7 +35,7 @@ public class SprayAttack extends AttackAI{
                 b.data = unit.getTarget();
                 b.fdata = Mathf.random(30f, 60f);
 
-                Sounds.missile.at(v.x, v.y, 2.5f);
+                Sounds.shootMissileLarge.at(v.x, v.y, 2.5f);
 
                 reload2 = unit.isDecoy() ? 4f : 2f;
             }

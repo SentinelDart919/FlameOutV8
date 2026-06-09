@@ -261,7 +261,7 @@ public class PrimeAttack extends AttackAI{
             }
             Tmp.v1.trns(unit.rotation, 12f).add(unit.x, unit.y);
             FlameFX.empathyPrimeHit.at(Tmp.v1.x, Tmp.v1.y, unit.rotation);
-            Sounds.largeCannon.at(Tmp.v1.x, Tmp.v1.y);
+            Sounds.explosion.at(Tmp.v1.x, Tmp.v1.y);
             Tmp.v1.sub(unit.x, unit.y).scl(2f).add(unit.x, unit.y);
             FlameFX.empathyPrimeShockwave.at(Tmp.v1.x, Tmp.v1.y, unit.rotation);
 

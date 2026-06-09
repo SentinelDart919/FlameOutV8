@@ -31,7 +31,7 @@ public class SwordAttack extends AttackAI{
 
     SwordAttack(){
         super();
-        addSoundDoppler(Sounds.spellLoop);
+        addSoundDoppler(Sounds.shootLaser);
     }
 
     @Override

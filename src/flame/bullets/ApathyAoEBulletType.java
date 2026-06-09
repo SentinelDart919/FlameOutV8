@@ -189,7 +189,7 @@ public class ApathyAoEBulletType extends BulletType{
         }
 
         FlameFX.aoeExplosion2.at(x, y, s);
-        Sounds.largeExplosion.at(x, y, Mathf.random(0.9f, 1.1f));
+        Sounds.explosion.at(x, y, Mathf.random(0.9f, 1.1f));
     }
 
     @SuppressWarnings("unchecked")

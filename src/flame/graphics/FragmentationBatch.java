@@ -56,15 +56,13 @@ public class FragmentationBatch extends Batch{
         sound = null;
     }
 
-
-    @Override
+/*
     protected void setMixColor(Color tint){
 
     }
-    @Override
     protected void setMixColor(float r, float g, float b, float a){
 
-    }
+    }*/
     @Override
     protected void setPackedMixColor(float packedColor){
 
@@ -77,7 +75,7 @@ public class FragmentationBatch extends Batch{
 
     @Override
     protected void draw(TextureRegion region, float x, float y, float originX, float originY, float width, float height, float rotation){
-        if(color.a <= 0.9f || region == updateCircle() || blending != Blending.normal || region == Core.atlas.white() || !region.found()) return;
+        if(Color.alpha(colorPacked) <= 0.9f || region == updateCircle() || blending != Blending.normal || region == Core.atlas.white() || !region.found()) return;
 
         //int dim = Math.max(region.width, region.height);
         float dim = Math.max(width, height) / Draw.scl;
@@ -110,7 +108,7 @@ public class FragmentationBatch extends Batch{
                 fragFunc.get(fr);
                 fr.generateGore();
             } : fragFunc);
-            frag.drawnColor.set(color);
+            frag.drawnColor.set(Float.floatToRawIntBits(colorPacked));
             if(genGore) frag.goreColor.set(goreColor);
             if(trailEffect != null) frag.trailEffect = trailEffect;
             if(explosionEffect != null) frag.explosionEffect = explosionEffect;

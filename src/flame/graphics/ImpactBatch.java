@@ -50,41 +50,14 @@ public class ImpactBatch extends SpriteBatch{
         float color = Color.whiteFloatBits;
         float mixColor = white ? Color.whiteFloatBits : Color.blackFloatBits;
 
-        for(int i = 0; i < Math.min(count, svt.length); i += VERTEX_SIZE){
-            svt[i] = spriteVertices[i];
-            svt[i + 1] = spriteVertices[i + 1];
+        int size = Math.min(count, svt.length);
+        System.arraycopy(spriteVertices, offset, svt, 0, size);
+        for(int i = 0; i < size; i += VERTEX_SIZE){
             svt[i + 2] = color;
-            svt[i + 3] = spriteVertices[i + 3];
-            svt[i + 4] = spriteVertices[i + 4];
             svt[i + 5] = mixColor;
         }
-        spriteVertices = svt;
-        count = Math.min(count, svt.length);
 
-        int verticesLength = vertices.length;
-        int remainingVertices = verticesLength;
-        if(texture != lastTexture){
-            switchTexture(texture);
-        }else{
-            remainingVertices -= idx;
-            if(remainingVertices == 0){
-                flush();
-                remainingVertices = verticesLength;
-            }
-        }
-        int copyCount = Math.min(remainingVertices, count);
-
-        System.arraycopy(spriteVertices, offset, vertices, idx, copyCount);
-        idx += copyCount;
-        count -= copyCount;
-        while(count > 0){
-            offset += copyCount;
-            flush();
-            copyCount = Math.min(verticesLength, count);
-            System.arraycopy(spriteVertices, offset, vertices, 0, copyCount);
-            idx += copyCount;
-            count -= copyCount;
-        }
+        super.draw(texture, svt, 0, size);
 
         u = v = 0f;
         u2 = v2 = 1f;
@@ -93,16 +66,7 @@ public class ImpactBatch extends SpriteBatch{
 
     @Override
     protected void draw(TextureRegion region, float x, float y, float originX, float originY, float width, float height, float rotation){
-        Texture texture = region.texture;
-        if(texture != lastTexture){
-            switchTexture(texture);
-        }else if(idx == vertices.length || (heavyShader && idx >= SPRITE_SIZE)){
-            flush();
-        }
-
-        float[] vertices = this.vertices;
-        int idx = this.idx;
-        this.idx += SPRITE_SIZE;
+        float[] vertexData = new float[SPRITE_SIZE];
 
         if(!Mathf.zero(rotation)){
             float worldOriginX = x + originX;
@@ -129,39 +93,36 @@ public class ImpactBatch extends SpriteBatch{
             float u2 = region.u2;
             float v2 = region.v;
 
-            //float color = this.colorPacked;
-            //float color = Color.whiteFloatBits;
             float color = useColor ? this.colorPacked : Color.whiteFloatBits;
-            //float color = white ? Color.whiteFloatBits : Color.blackFloatBits;
             float mixColor = white ? Color.whiteFloatBits : Color.blackFloatBits;
 
-            vertices[idx] = x1;
-            vertices[idx + 1] = y1;
-            vertices[idx + 2] = color;
-            vertices[idx + 3] = u;
-            vertices[idx + 4] = v;
-            vertices[idx + 5] = mixColor;
+            vertexData[0] = x1;
+            vertexData[1] = y1;
+            vertexData[2] = color;
+            vertexData[3] = u;
+            vertexData[4] = v;
+            vertexData[5] = mixColor;
 
-            vertices[idx + 6] = x2;
-            vertices[idx + 7] = y2;
-            vertices[idx + 8] = color;
-            vertices[idx + 9] = u;
-            vertices[idx + 10] = v2;
-            vertices[idx + 11] = mixColor;
+            vertexData[6] = x2;
+            vertexData[7] = y2;
+            vertexData[8] = color;
+            vertexData[9] = u;
+            vertexData[10] = v2;
+            vertexData[11] = mixColor;
 
-            vertices[idx + 12] = x3;
-            vertices[idx + 13] = y3;
-            vertices[idx + 14] = color;
-            vertices[idx + 15] = u2;
-            vertices[idx + 16] = v2;
-            vertices[idx + 17] = mixColor;
+            vertexData[12] = x3;
+            vertexData[13] = y3;
+            vertexData[14] = color;
+            vertexData[15] = u2;
+            vertexData[16] = v2;
+            vertexData[17] = mixColor;
 
-            vertices[idx + 18] = x4;
-            vertices[idx + 19] = y4;
-            vertices[idx + 20] = color;
-            vertices[idx + 21] = u2;
-            vertices[idx + 22] = v;
-            vertices[idx + 23] = mixColor;
+            vertexData[18] = x4;
+            vertexData[19] = y4;
+            vertexData[20] = color;
+            vertexData[21] = u2;
+            vertexData[22] = v;
+            vertexData[23] = mixColor;
         }else{
             float fx2 = x + width;
             float fy2 = y + height;
@@ -170,39 +131,38 @@ public class ImpactBatch extends SpriteBatch{
             float u2 = region.u2;
             float v2 = region.v;
 
-            //float color = this.colorPacked;
-            //float color = Color.whiteFloatBits;
             float color = useColor ? this.colorPacked : Color.whiteFloatBits;
             float mixColor = white ? Color.whiteFloatBits : Color.blackFloatBits;
 
-            vertices[idx] = x;
-            vertices[idx + 1] = y;
-            vertices[idx + 2] = color;
-            vertices[idx + 3] = u;
-            vertices[idx + 4] = v;
-            vertices[idx + 5] = mixColor;
+            vertexData[0] = x;
+            vertexData[1] = y;
+            vertexData[2] = color;
+            vertexData[3] = u;
+            vertexData[4] = v;
+            vertexData[5] = mixColor;
 
-            vertices[idx + 6] = x;
-            vertices[idx + 7] = fy2;
-            vertices[idx + 8] = color;
-            vertices[idx + 9] = u;
-            vertices[idx + 10] = v2;
-            vertices[idx + 11] = mixColor;
+            vertexData[6] = x;
+            vertexData[7] = fy2;
+            vertexData[8] = color;
+            vertexData[9] = u;
+            vertexData[10] = v2;
+            vertexData[11] = mixColor;
 
-            vertices[idx + 12] = fx2;
-            vertices[idx + 13] = fy2;
-            vertices[idx + 14] = color;
-            vertices[idx + 15] = u2;
-            vertices[idx + 16] = v2;
-            vertices[idx + 17] = mixColor;
+            vertexData[12] = fx2;
+            vertexData[13] = fy2;
+            vertexData[14] = color;
+            vertexData[15] = u2;
+            vertexData[16] = v2;
+            vertexData[17] = mixColor;
 
-            vertices[idx + 18] = fx2;
-            vertices[idx + 19] = y;
-            vertices[idx + 20] = color;
-            vertices[idx + 21] = u2;
-            vertices[idx + 22] = v;
-            vertices[idx + 23] = mixColor;
+            vertexData[18] = fx2;
+            vertexData[19] = y;
+            vertexData[20] = color;
+            vertexData[21] = u2;
+            vertexData[22] = v;
+            vertexData[23] = mixColor;
         }
+        super.draw(region.texture, vertexData, 0, SPRITE_SIZE);
         u = region.u;
         v = region.v;
         u2 = region.u2;

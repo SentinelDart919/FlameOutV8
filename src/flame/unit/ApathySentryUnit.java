@@ -66,7 +66,7 @@ public class ApathySentryUnit extends UnitEntity{
                         reload -= Time.delta;
                         if(reload <= 0f){
                             Tmp.v1.trns(rotation, hitSize / 1.5f).add(x, y);
-                            Sounds.laser.at(Tmp.v1);
+                            Sounds.shootLaser.at(Tmp.v1);
                             FlameBullets.sentryLaser.create(this, Tmp.v1.x, Tmp.v1.y, rotation);
                         }
                     }

@@ -26,11 +26,10 @@ public class YggdrasilUnit extends UnitEntity{
     public SolidPred solidity(){
         return EntityCollisions::legsSolid;
     }
-
-    @Override
+/*
     public int pathType(){
         return Pathfinder.costLegs;
-    }
+    }*/
 
     @Override
     public void update(){

@@ -24,6 +24,7 @@ public class EmpathyUnit extends UnitEntity{
     EmpathyAI activeMovement, activeAttack;
     int attackAIChanges = 0;
 
+    public float ammo;
     boolean decoy = false;
     private float decoyDelay, decoyTime;
 
@@ -337,7 +338,7 @@ public class EmpathyUnit extends UnitEntity{
                 EmpathyUnit u1 = createUnit(o);
                 u1.setType(type);
                 //u1.team = tm[0];
-                u1.ammo = type.ammoCapacity;
+                //u1.ammo = type.ammoCapacity; // deprecated in v158 — field removed from UnitEntity
                 u1.elevation = 1f;
                 u1.copyFields(this);
                 u1.team = tm[0];
@@ -1188,7 +1189,7 @@ public class EmpathyUnit extends UnitEntity{
         EmpathyUnit u = new EmpathyUnit();
         u.team = team;
         u.setType(type);
-        u.ammo = type.ammoCapacity;
+        //u.ammo = type.ammoCapacity; // deprecated in v158 — field removed from UnitEntity
         u.elevation = 1f;
         u.copyFields(this);
         u.decoyDelay = 2f * 60;

@@ -326,7 +326,7 @@ public class Stage1 extends SpecialState{
         void draw(){
             time += Time.delta;
             Unit unit = player.unit();
-            if(unit != null && !unit.isNull()){
+            if(unit != null){
                 Tmp.v1.set(unit.x, unit.y).sub(x, y).limit(25f * Mathf.clamp(time / 40f));
                 x += Tmp.v1.x;
                 y += Tmp.v1.y;

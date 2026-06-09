@@ -30,7 +30,7 @@ public class BulletHellMove extends FollowStrongest{
 
     static Seq<Bullet> bullets = new Seq<>();
     static Seq<Unit> unitBullets = new Seq<>();
-    static Seq<Velc> hbullets = new Seq<>();
+    static Seq<Entityc> hbullets = new Seq<>();
     static Rect trect = new Rect();
     
     Vec2 randomMovement = new Vec2();
@@ -334,8 +334,18 @@ public class BulletHellMove extends FollowStrongest{
                 if(dst <= size + s && dst > 0){
                     Tmp.v1.trns(unit.angleTo(b), 0f, (Tmp.v2.x > 0 ? 1 : -1) * (size + s));
                     boolean valid = true;
-                    for(Velc b2 : hbullets){
+                    for(Bullet b2 : bullets){
                         if(b2 != b){
+                            float bmx = b2.x() + b2.vel().x * tdel;
+                            float bmy = b2.y() + b2.vel().y * tdel;
+                            if(Mathf.within(bmx, bmy, b.x + Tmp.v1.x, b.y + Tmp.v1.y, (size + s) - 0.1f)){
+                                valid = false;
+                                break;
+                            }
+                        }
+                    }
+                    if(valid){
+                        for(Unit b2 : unitBullets){
                             float bmx = b2.x() + b2.vel().x * tdel;
                             float bmy = b2.y() + b2.vel().y * tdel;
                             if(Mathf.within(bmx, bmy, b.x + Tmp.v1.x, b.y + Tmp.v1.y, (size + s) - 0.1f)){
@@ -375,13 +385,23 @@ public class BulletHellMove extends FollowStrongest{
                 if(dst <= size + s && dst > 0){
                     Tmp.v1.trns(unit.angleTo(b), 0f, (Tmp.v2.x > 0 ? 1 : -1) * (size + s));
                     boolean valid = true;
-                    for(Velc b2 : hbullets){
-                        if(b2 != b){
-                            float bmx = b2.x() + b2.vel().x * tdel;
-                            float bmy = b2.y() + b2.vel().y * tdel;
-                            if(Mathf.within(bmx, bmy, b.x + Tmp.v1.x, b.y + Tmp.v1.y, (size + s) - 0.1f)){
-                                valid = false;
-                                break;
+                    for(Bullet b2 : bullets){
+                        float bmx = b2.x() + b2.vel().x * tdel;
+                        float bmy = b2.y() + b2.vel().y * tdel;
+                        if(Mathf.within(bmx, bmy, b.x + Tmp.v1.x, b.y + Tmp.v1.y, (size + s) - 0.1f)){
+                            valid = false;
+                            break;
+                        }
+                    }
+                    if(valid){
+                        for(Unit b2 : unitBullets){
+                            if(b2 != b){
+                                float bmx = b2.x() + b2.vel().x * tdel;
+                                float bmy = b2.y() + b2.vel().y * tdel;
+                                if(Mathf.within(bmx, bmy, b.x + Tmp.v1.x, b.y + Tmp.v1.y, (size + s) - 0.1f)){
+                                    valid = false;
+                                    break;
+                                }
                             }
                         }
                     }

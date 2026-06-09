@@ -112,10 +112,11 @@ public class Stage4 extends SpecialState{
 
         void update(){
             speed += (1f / (60f * 60f)) * FlameOutSFX.timeDelta;
-            if(!player.unit().isNull()) speed = Math.max(player.unit().type.speed / 4f, speed);
+            if(player.unit() != null) speed = Math.max(player.unit().type.speed / 4f, speed);
 
             Vec2 v = Stage1.v1;
             Unit target = player.unit();
+            if(target == null) return; // for preventing null pointer exception crash (this runs when the player enters to the world so the player is not spawned during the core launch animation
 
             v.set(target).sub(x, y).limit(speed * FlameOutSFX.timeDelta);
 

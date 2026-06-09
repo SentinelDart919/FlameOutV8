@@ -33,7 +33,7 @@ public class EndLauncherWeapon extends Weapon{
         reload = 60f * 2.5f;
 
         //shootSound = Sounds.missileSmall;
-        shootSound = Sounds.missile;
+        shootSound = Sounds.shootMissileLarge;
         mountType = EndLauncherMount::new;
 
         bullet = new EndMissileBulletType();
