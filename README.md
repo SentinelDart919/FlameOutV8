@@ -1,4 +1,4 @@
-## Not intended for Multiplayer or Mobile
+## Not intended for Multiplayer
 
 ## Building for Desktop Testing
 
