@@ -56,10 +56,22 @@ task jarAndroid{
         //collect dependencies needed for desugaring
         def dependencies = (configurations.compileClasspath.asList() + configurations.runtimeClasspath.asList() + [new File(platformRoot, "android.jar")]).collect{ "--classpath $it.path" }.join(" ")
 
-        //dex and desugar files - this requires d8 in your PATH
-        "d8 $dependencies --min-api 14 --output ${project.archivesBaseName}Android.jar ${project.archivesBaseName}Desktop.jar"
-            .execute(null, new File("$buildDir/libs")).waitForProcessOutput(System.out, System.err)
-    }
+        //d8
+        def d8 = new File("$sdkRoot/build-tools/").listFiles().sort().reverse().find{ f -> new File(f, "d8").exists() }
+        if(!d8) d8 = new File("$sdkRoot/build-tools/").listFiles().sort().reverse().find{ f -> new File(f, "d8.bat").exists() }
+        if(d8) d8 = new File(d8, "d8.bat")
+        if(!d8) d8 = new File("d8")
+
+        //in case that you are a dumb like me which system uses java 8 WHEN THE IDE IS SPECIFIED TO USE JAVA 17 AND JAVA HOME VAR IN ON JAVA 17
+        //this part will do that for you (locate a java 11+)
+        def javaHome = ["C:/Program Files/Java/jdk-17", "C:/Program Files/Java/latest"]
+            .collect{ new File(it) }
+            .find{ it.exists() && new File(it, "bin/java.exe").exists() }
+        def env = javaHome ? ["JAVA_HOME=${javaHome}", "PATH=${javaHome}\\bin;${System.getenv('PATH')}"] : null
+
+        "$d8 $dependencies --min-api 14 --output ${project.archivesBaseName}Android.jar ${project.archivesBaseName}Desktop.jar"
+            .execute(env, new File("$buildDir/libs")).waitForProcessOutput(System.out, System.err)
+    }// dear god I hate android a lot
 }
 
 jar{
